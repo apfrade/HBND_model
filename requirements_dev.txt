@@ -1,4 +1,4 @@
 twine
-pandas==0.25.3
-joblib==0.14.0
-numpy==1.17.4
+pandas==0.2
+joblib==0.1
+numpy==1.1
