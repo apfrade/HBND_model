@@ -44,6 +44,8 @@ Dependency installation via conda:
 # Installation
 
 Via pip:
+
+      $ pip install -i https://test.pypi.org/simple/ HBNDmodel
 	  
 # References
 
