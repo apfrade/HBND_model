@@ -1,3 +1,5 @@
+include README.md
+include LICENSE
 include HBNDmodel/data/descriptor_names
 include HBNDmodel/data/hbnd_model.sav
 include HBNDmodel/data/scaler_model.bin
