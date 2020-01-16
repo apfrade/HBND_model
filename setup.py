@@ -14,7 +14,9 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/apfrade/HBNDmodel.git",
-    packages=setuptools.find_packages(),
+    packages=['HBNDmodel'],
+    package_dir={'HBNDmodel': 'HBNDmodel/HBNDmodel'},
+    package_data={'HBNDmodel':['data/descriptor_names', 'data/hbnd_model.sav', 'data/scaler_model.bin']},
     install_requires= requirements,
     python_requires='>=3',
     classifiers=[
