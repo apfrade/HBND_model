@@ -7,7 +7,7 @@ requirements = ["pandas >= 0.2", "joblib >= 0.1", "numpy >= 1"]
 
 setuptools.setup(
     name='HBNDmodel',
-    version="0.0.11",
+    version="0.0.12",
     author='Andre Frade',
     author_email="andre.frade@hertford.ox.ac.uk",
     description='HBND predictive model package',
@@ -17,11 +17,10 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires= requirements,
     python_requires='>=3',
-    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-],  
-)
+    ],  
+    include_package_data=True)
 
 

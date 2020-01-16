@@ -1,3 +1,3 @@
-include HBNDmodel\descriptor_names
-include HBNDmodel\hbnd_model.sav
-include HBNDmodel\scaler_model.bin
+include HBNDmodel\data\descriptor_names
+include HBNDmodel\data\hbnd_model.sav
+include HBNDmodel\data\scaler_model.bin
