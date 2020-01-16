@@ -90,7 +90,7 @@ def get_descriptors(mols):
     print('')
     
     # get list of descriptors
-    descriptor_names = pd.read_pickle('descriptor_names')
+    descriptor_names = pd.read_pickle('data/descriptor_names')
     
     # retrive descriptors
     desc_object = MoleculeDescriptors.MolecularDescriptorCalculator(descriptor_names)
@@ -128,7 +128,7 @@ def scale_df(df):
     '''
     
     # load scaling model
-    scaler_model = load('scaler_model.bin')
+    scaler_model = load('data/scaler_model.bin')
     
     # scale descs
     X = df.drop(['smiles'], axis=1)
@@ -169,7 +169,7 @@ def predict(scaled_df, report=False):
     descs = scaled_df.drop(['smiles'], axis=1)
     
     # load hbnd model
-    hbnd_model =  pickle.load(open('hbnd_model.sav', "rb"))
+    hbnd_model =  pickle.load(open('data/hbnd_model.sav', "rb"))
     
     # predict
     hbnd = hbnd_model.predict(descs)
