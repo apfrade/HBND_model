@@ -171,7 +171,7 @@ def predict(scaled_df, report=False):
     descs = scaled_df.drop(['smiles'], axis=1)
     
     # load hbnd model
-    hbnd_model =  pickle.load(open(os.path.join(this_path,'data/hbnd_model.sav', "rb")))
+    hbnd_model =  pickle.load(open(os.path.join(this_path,'data/hbnd_model.sav'), "rb"))
     
     # predict
     hbnd = hbnd_model.predict(descs)
