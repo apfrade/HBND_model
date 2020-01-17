@@ -7,7 +7,7 @@ requirements = ["pandas >= 0.2", "joblib >= 0.1", "numpy >= 1"]
 
 setuptools.setup(
     name='HBNDmodel',
-    version="0.0.15",
+    version="0.0.17",
     author='Andre Frade',
     author_email="andre.frade@hertford.ox.ac.uk",
     description='HBND predictive model package',
@@ -15,8 +15,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/apfrade/HBNDmodel.git",
     packages=['HBNDmodel'],
-    package_dir={'HBNDmodel': 'HBNDmodel'},
-    package_data={'HBNDmodel':['HBNDmodel/data/descriptor_names', 'HBNDmodel/data/hbnd_model.sav', 'HBNDmodel/data/scaler_model.bin']},
     install_requires= requirements,
     python_requires='>=3',
     classifiers=[
