@@ -8,8 +8,10 @@ try:
 except ImportError:
     raise ImportError(
         "In order to run the model you must have the libraries: " +
-        "`numpy`, `pandas`, 'joblib' and 'rdkit' installed.")    
+        "`numpy`, `pandas`, 'joblib' and 'rdkit' installed.") 
 
+import os
+this_path = os.path.dirname(__file__)
 
 def clean_df(df):
     
@@ -90,7 +92,7 @@ def get_descriptors(mols):
     print('')
     
     # get list of descriptors
-    descriptor_names = pd.read_pickle('data/descriptor_names')
+    descriptor_names = pd.read_pickle(os.path.join(this_path,'data/descriptor_names'))
     
     # retrive descriptors
     desc_object = MoleculeDescriptors.MolecularDescriptorCalculator(descriptor_names)
@@ -128,7 +130,7 @@ def scale_df(df):
     '''
     
     # load scaling model
-    scaler_model = load('data/scaler_model.bin')
+    scaler_model = load(os.path.join(this_path,'data/scaler_model.bin'))
     
     # scale descs
     X = df.drop(['smiles'], axis=1)
@@ -169,7 +171,7 @@ def predict(scaled_df, report=False):
     descs = scaled_df.drop(['smiles'], axis=1)
     
     # load hbnd model
-    hbnd_model =  pickle.load(open('data/hbnd_model.sav', "rb"))
+    hbnd_model =  pickle.load(open(os.path.join(this_path,'data/hbnd_model.sav', "rb")))
     
     # predict
     hbnd = hbnd_model.predict(descs)
