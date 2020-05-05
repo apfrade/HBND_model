@@ -50,7 +50,8 @@ See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce0
 
 ## When and how to use the model   
 
-The model may be used as shown in the ***walkthrough.ipynb*** in the hbnd directory.  
+**The model may be used as shown in the *walkthrough.ipynb* in the hbnd_model directory.**  
+
 
 **Note**  
 The model is only suitable to predict the HBND of **single chemical component organic crystals**.   
