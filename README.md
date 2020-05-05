@@ -6,7 +6,7 @@ Hydrogen bond network dimensionality (HBND) describes how hydrogen-bond intermol
 The hydrogen bond network dimensionality problem can be formulated as a four-class classification task, and the four possible network dimensionality outcomes are schematically represented below. We provide a ready to use model for Hydrogen Bond Network Dimensionality prediction.  
 
 - **Input:** list of SMILES of the molecules to be predicted  
-- **Output:** a list of (class, SMILES) pairs  
+- **Output:** a list of (hbnd label, SMILES) pairs  
 - **Performance:** 59% accuracy (compared to a 25% random threshold)  
 
 See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) for more details.  
