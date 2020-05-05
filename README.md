@@ -48,10 +48,15 @@ This can be found in the hbnd_model directory, under the name ***hbnd_model***. 
 
 See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) and basic_tour for more details. 
 
-## When and how to use the model   
+## Dependencies   
+The code should be run using Python 3. It also requires the RDkit, Pandas, NumPy, and JobLib modules. Dependency installation via conda:  
+
+      $ conda install pandas numpy pickle joblib matplotlib scikit-learn
+      $ conda install -c conda-forge rdkit
+
+## Usage 
 
 **The model may be used as shown in the *walkthrough.ipynb* in the hbnd_model directory.**  
-
 
 **Note**  
 The model is only suitable to predict the HBND of **single chemical component organic crystals**.   
@@ -59,17 +64,7 @@ The model is only suitable to predict the HBND of **single chemical component or
 Using the model as is may only be suitable for initial initial screening of large libraries. The trust of output predictions can be increased by subjecting the model to a [confidence threshold](https://github.com/apfrade/ConfidenceMeasure/blob/master/README.md). This approach may enable further single compound HBND profilling.  
 
 See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) for more details. 
-
-## Dependencies   
-The code should be run using Python 3. It also requires the RDkit, Pandas, NumPy, and JobLib modules. Dependency installation via conda:  
-
-      $ conda install pandas numpy pickle joblib matplotlib scikit-learn
-      $ conda install -c conda-forge rdkit
-
-## Installation  
-Via pip:
-
-      $ pip install -i https://test.pypi.org/simple/ HBNDmodel  
+ 
 	  
 # References   
 
