@@ -1,5 +1,0 @@
-twine
-pandas==0.24.2
-joblib==0.13.2
-numpy==1.17.2
-
