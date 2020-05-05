@@ -3,29 +3,54 @@
 ## Introduction  
 Hydrogen bond network dimensionality (HBND) describes how hydrogen-bond intermolecular interactions extend in a three-dimensional structure. The network arrangement is thought to influence properties where hydrogen bonding plays critical  role, such as crystal stability, mechanical  behaviour  and compound tabletability performance.  
 
-The hydrogen bond network dimensionality problem can be formulated as a four-class classification task, and the four possible network dimensionality outcomes are schematically represented below. We provide a ready to use model for Hydrogen Bond Network Dimensionality prediction.  
+The hydrogen bond network dimensionality problem can be formulated as a four-class classification task. Intermolecular hydrogen interactions between molecules may lead to enclosed motifs (0D), chains (1D), sheets (2D) or expansion of the network in all directions (3D).  
 
+In this page we provide a hbnd dataset and a hbnd predictive model.   
+
+## The dataset  
+
+The dataset was obtained from the Cambridge Structural Database (CSD). The CSD was searched for all **organic** crystal structures of a **single chemical component**. Entries containing:  
+- metals, salts, or ions were discarded, as these present additional challenges that were not addressed in the study.   
+- disorder, errors or incomplete information about crystal atomic coordinates or hydrogen bonds were discarded, as they would not provide enough information for accurate hbnd label calculation.   
+
+Of these, molecules with more than one crystal structure submitted to the database were removed. This step removes conflicting data where the compound is polymorphic and its different crystal arrangements are reported to have different network dimensionalities. 
+
+Dimensionality was calculated through the computation of the square roots of the eigenvalues of the covariance matrix of the atomic coordinates of the supramolecular structures that resulted from two different expansions of the network, through hydrogen bond intermolecular interactions, using methods from the CSD Python API. Ratios for each dimension before and after the expansion were calculated, to deduce the number of directions in which the network grew.  
+
+The final dataset includes 63 839 labelled examples across 4 classes: 0D (22971), 1D (30718), 2D (7013), 3D (3137). This can be found in the dataset directory, under the name hbnd_dataset. You may access the content with:  
+
+	$ import pandas as pd
+	$ hbnd = pd.read_pickle('hbnd_dataset')
+	
+The dataset contains 2 columns:   
+- *id*, containing the molecule SMILES string  
+- *label*, containing the correspondent hbnd tag  
+
+## The model
+
+The hbnd model was produced from the dataset above. One hundred and fifteen descriptors of two
+and lower dimensions were calculated for each molecule using the RDkit package. 
+
+Data processing included cleansing, scaling and class size balancing. The dataset was divided into a training (80%) and test set (20%), and different methods were considered for model fitting and hyperparameter optimisation.
+
+The best performing model was produced by an SVM RBF routine, which we provide here:  
 - **Input:** list of SMILES of the molecules to be predicted  
 - **Output:** a list of (hbnd label, SMILES) pairs  
 - **Performance:** 59% accuracy (compared to a 25% random threshold)  
 
-See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) for more details.  
+See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) and basic_tour for more details.  
+
+This can be found in the HBNDmodel directory, under the name hbnd_model.  
 
 ## Disclamer   
-1) The model is only prepared to predict the HBND of single chemical component organic crystals.  
-2) Using the model as is may only be suitable for initial initial screening of large libraries. The trust of output predictions can be increased by subjecting the model to a [confidence threshold](https://github.com/apfrade/ConfidenceMeasure/blob/master/README.md). This approach may enable further single compound HBND profilling.  
+
+1. The model is only suitable to predict the HBND of **single chemical component organic crystals**.   
+2. Using the model as is may only be suitable for initial initial screening of large libraries. The trust of output predictions can be increased by subjecting the model to a [confidence threshold](https://github.com/apfrade/ConfidenceMeasure/blob/master/README.md). This approach may enable further single compound HBND profilling.  
 
 See the [reference](https://pubs.rsc.org/en/content/articlelanding/2020/ce/d0ce00111b#!divAbstract) for more details. 
 
 ## Dependencies   
-The code should be run using Python 3.  
-
-     RDkit
-     Pandas
-     NumPy
-     JobLib
-   
-Dependency installation via conda:  
+The code should be run using Python 3. It also requires the RDkit, Pandas, NumPy, and JobLib modules. Dependency installation via conda:  
 
       $ conda install pandas numpy pickle joblib matplotlib scikit-learn
       $ conda install -c conda-forge rdkit
