@@ -1,4 +1,4 @@
-# HBNDmodel
+# HBND model
 
 ## Introduction  
 Hydrogen bond network dimensionality (HBND) describes how hydrogen-bond intermolecular interactions extend in a three-dimensional structure. The network arrangement is thought to influence properties where hydrogen bonding plays critical  role, such as crystal stability, mechanical  behaviour  and compound tabletability performance.  
