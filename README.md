@@ -39,7 +39,7 @@ The dataset contains 2 columns:
 
 **Feature calculation**  
 
-The hbnd model was produced from the dataset above. One hundred and fifteen descriptors of two and lower dimensions were calculated for each molecule using the RDkit package. 
+The hbnd model was produced from the dataset above. 113 descriptors of two and lower dimensions were calculated for each molecule using the RDkit package. 
 
 **Data processing / Model fitting**  
 

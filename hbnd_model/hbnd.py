@@ -1,5 +1,4 @@
 try:
-    import os
     import numpy as np
     import pandas as pd
     from joblib import load
@@ -18,24 +17,23 @@ class PredictiveModel:
            It uses the rdkit package.
         '''
         
-        descriptor_names = load('descriptor_names')
-        desc_object = MoleculeDescriptors.MolecularDescriptorCalculator(descriptor_names)
-        
+        meta = load('meta')
+        desc_object = MoleculeDescriptors.MolecularDescriptorCalculator(meta['descriptor_names'].values)
+
         invalid_molecules = []
         ids, descriptors = [], []
-        
         for smiles in smiles_list:
-        
+
             try:
                 mol = Chem.MolFromSmiles(smiles)
-                desc_list = list(desc_object.CalcDescriptors(mol))
-                descriptors.append(desc_list)
-                ids.append(smiles)
-            
+                if mol is not None:
+                    desc_list = list(desc_object.CalcDescriptors(mol))
+                    descriptors.append(desc_list)
+                    ids.append(smiles)
             except:
                 invalid_molecules.append(smiles)
                 
-        if len(invalid_molecules) > 0:
+        if len(invalid_molecules) > 0 and len(descriptors)!=0:
             print('Some molecules could not be processed.')
             print(invalid_molecules)        
                 
@@ -43,29 +41,34 @@ class PredictiveModel:
             print('No molecules could be processed.')
             
         else: 
-            df = pd.DataFrame(descriptors, columns=descriptor_names)
+            df = pd.DataFrame(descriptors, columns=meta['descriptor_names'].values)
             df.insert(0, 'smiles', ids)
-            return df
+            return df 
             
+            
+    def _preprocess(self, df):
 
+        meta = load('meta')
+        scaled = meta['scaler'].transform(df.drop(['smiles'], axis=1))
+        scaled = pd.DataFrame(scaled, columns=df.columns.values[1:])
+        scaled.insert(0, 'smiles', df.smiles.values)
+        
+        scaled.fillna(value=np.nan, inplace=True)
+        scaled.replace([np.inf, -np.inf], np.nan, inplace=True)
+        scaled.dropna(inplace=True)
+        scaled.reset_index(inplace=True, drop=True)
+        
+        return scaled
+    
+    
     def _predict_hbnd(self, df):
-        
-        ''' A function that predicts HBND.'''
-        
-        # partition data
+
         ids = df['smiles'].values
         descs = df.drop(['smiles'], axis=1)
-        
-        # load hbnd model
         hbnd_model =  load('hbnd_model')
         
-        # predict
         hbnd = hbnd_model.predict(descs)
-        
-        # report
-        res = []
-        for molecule, dimensionality in zip(ids, hbnd):
-            res.append((dimensionality, molecule))
+        res = [(label, molecule) for molecule, label in zip(ids, hbnd)]
         
         return res
 
@@ -73,18 +76,14 @@ class PredictiveModel:
         
         '''Predicts the HBND of molecules given their SMILES.
         
-        Parameters
-        ----------
-        smiles: 1d array
-            Array of SMILES of the molecules to be predicted.
+        :param 
+        smiles_list: 1d array containing the SMILES of the molecules to be predicted.
        
-        Returns
-        -------
-        prediction_list: 1d list
-            The list of tuples (SMILES, predicted HBND) containing the results of the prediction. 
+        :return 
+        predictions: 1d list of (predicted label, SMILES) tuples containing the results. 
         '''
         
         descriptors = self._get_descriptors(smiles_list)
-        prediction_list = self._predict_hbnd(descriptors)
-        
-        return prediction_list
+        descriptors = self._preprocess(descriptors)
+        predictions = self._predict_hbnd(descriptors)
+        return predictions
