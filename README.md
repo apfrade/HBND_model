@@ -1,4 +1,4 @@
-# HBND model
+﻿# HBND model
 
 ## Introduction  
 
@@ -49,7 +49,8 @@ The dataset was divided into a training (80%) and test set (20%), and different 
 The best performing model was produced by an SVM RBF routine, which we provide here:  
 - **Input:** list of SMILES of the molecules to be predicted  
 - **Output:** a list of (hbnd label, SMILES) pairs  
-- **Performance:** 59% accuracy (compared to a 25% random threshold)  
+- **Performance:** 59% accuracy (compared to a 25% random threshold)
+- **Class accuracy:** 0D (68%), 1D (42%), 2D (56%), 3D (63%)
 
 This can be found in the hbnd_model directory, under the name ***hbnd_model***. For model usage, check the walkthrough.  
 
